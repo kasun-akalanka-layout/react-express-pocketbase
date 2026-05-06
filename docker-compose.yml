@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  pocketbase:
+    build: ./pocketbase
+    container_name: pocketbase
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./pb_data:/pb/pb_data
+    restart: unless-stopped
+    networks:
+      - kds-network
+
+  backend:
+    build: ./backend
+    container_name: express-api
+    ports:
+      - "3001:3001"
+    depends_on:
+      - pocketbase
+    environment:
+      - PB_URL=http://pocketbase:8080
+      - NODE_ENV=production
+    restart: on-failure
+    networks:
+      - kds-network
+
+  frontend:
+    build: ./frontend
+    container_name: react-app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+      - pocketbase
+    environment:
+      - VITE_API_URL=http://localhost:3001
+      - VITE_PB_URL=http://localhost:8080
+    restart: on-failure
+    networks:
+      - kds-network
+
+networks:
+  kds-network:
+    driver: bridge
