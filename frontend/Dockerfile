@@ -2,16 +2,13 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies (including devDependencies for Vite)
 RUN npm install
 
-# Copy application code
 COPY . .
 
 EXPOSE 5173
 
-# Start development server
+ENV VITE_PB_URL=http://localhost:8080
+
 CMD ["npm", "run", "dev", "--", "--host"]
