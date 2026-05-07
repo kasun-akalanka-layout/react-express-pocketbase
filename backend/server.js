@@ -1,3 +1,4 @@
+import 'dotenv/config.js';
 import express from "express";
 import PocketBase from "pocketbase";
 import cors from "cors";

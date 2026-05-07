@@ -1,8 +1,7 @@
 # Dependencies
 node_modules/
 
-# Environment variables
-.env
+# Environment variables (local overrides only)
 .env.local
 .env.*.local
 
