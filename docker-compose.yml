@@ -35,8 +35,8 @@ services:
       - backend
       - pocketbase
     environment:
-      - VITE_API_URL=http://localhost:3001
-      - VITE_PB_URL=http://localhost:8080
+      - VITE_API_URL=http://backend:3001
+      - VITE_PB_URL=http://pocketbase:8080
     restart: on-failure
     networks:
       - kds-network

@@ -132,7 +132,8 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://pocketbase:8080");
+const pbUrl = import.meta.env.VITE_PB_URL || "http://pocketbase:8080";
+const pb = new PocketBase(pbUrl);
 
 export default function App() {
   const [orders, setOrders] = useState([]);
